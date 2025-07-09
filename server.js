@@ -7,6 +7,10 @@ import chefRoutes from "./routes/chef.js";
 import authRoutes from "./routes/auth.js";
 import adminRoutes from "./routes/admin.js";
 import clientAuthRoutes from "./routes/clientAuth.js";
+import dishRoutes from "./routes/dish.js";
+import ordersRoutes from "./routes/orders.js";
+import usersRoutes from "./routes/users.js";
+
 dotenv.config();
 
 const app = express();
@@ -20,6 +24,9 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/server", serverRoutes);
 app.use("/api/chef", chefRoutes);
 app.use("/api/client", clientAuthRoutes);
+app.use("/api/dish", dishRoutes);
+app.use("/api/orders", ordersRoutes);
+app.use("/api/users", usersRoutes);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
