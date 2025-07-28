@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test Socket.io</title>
+  <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+</head>
+<body>
+  <h1>Test DineEasia Socket</h1>
+  <button onclick="sendOrder()">Envoyer commande</button>
+  <button onclick="updateOrder()">Mise à jour commande</button>
+
+  <script>
+    const socket = io("http://localhost:5000");
+
+    socket.on("connect", () => {
+      console.log("✅ Connecté :", socket.id);
+    });
+
+    socket.on("order:received", (order) => {
+      console.log("📦 Commande reçue :", order);
+    });
+
+    socket.on("order:updated", (update) => {
+      console.log("🔄 Mise à jour :", update);
+    });
+
+    function sendOrder() {
+      const order = {
+        tableId: "T1",
+        items: [
+          { dish: "Burger", quantity: 2 }
+        ]
+      };
+      socket.emit("order:new", order);
+    }
+
+    function updateOrder() {
+      const update = {
+        orderId: "123456",
+        status: "ready"
+      };
+      socket.emit("order:status", update);
+    }
+  </script>
+</body>
+</html>

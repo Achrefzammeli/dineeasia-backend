@@ -14,7 +14,8 @@ router.get("/", async (req, res) => {
 // POST /api/dishes → ajouter un plat (ADMIN seulement)
 router.post("/", verifyToken, verifyRole("ADMIN"), async (req, res) => {
   try {
-    const dish = new Dish(req.body);
+    const { name, description, price, tags, available, imageUrl } = req.body;
+    const dish = new Dish({ name, description, price, tags, available, imageUrl });
     await dish.save();
     res.status(201).json(dish);
   } catch (err) {
@@ -24,7 +25,8 @@ router.post("/", verifyToken, verifyRole("ADMIN"), async (req, res) => {
 
 // PUT /api/dishes/:id → modifier
 router.put("/:id", verifyToken, verifyRole("ADMIN"), async (req, res) => {
-  const dish = await Dish.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  const updatedFields = req.body; // inclut imageUrl si fourni
+  const dish = await Dish.findByIdAndUpdate(req.params.id, updatedFields, { new: true });
   res.json(dish);
 });
 

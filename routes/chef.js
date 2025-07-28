@@ -7,4 +7,5 @@ router.get("/kitchen", verifyToken, verifyRole("CHEF"), (req, res) => {
   res.json({ message: `Bienvenue chef ${req.user.id}` });
 });
 
+
 export default router;

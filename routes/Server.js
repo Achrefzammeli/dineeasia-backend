@@ -8,4 +8,3 @@ router.get("/orders", verifyToken, verifyRole("SERVER"), (req, res) => {
 });
 
 export default router;
-    
