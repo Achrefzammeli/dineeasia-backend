@@ -19,7 +19,9 @@ router.get("/", verifyToken, verifyRole("ADMIN"), async (req, res) => {
 
 // PUT /api/users/:id → Modifier un utilisateur
 router.put("/:id", verifyToken, verifyRole("ADMIN"), async (req, res) => {
-  const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
   res.json(user);
 });
 

@@ -13,6 +13,7 @@ import clientAuthRoutes from "./routes/clientAuth.js";
 import dishRoutes from "./routes/dish.js";
 import ordersRoutes from "./routes/orders.js";
 import usersRoutes from "./routes/users.js";
+import tablesRoutes from "./routes/tables.js";
 
 dotenv.config();
 
@@ -27,6 +28,11 @@ const io = new Server(httpServer, {
 
 app.use(cors());
 app.use(express.json());
+
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
 
 /** ✅ Socket.io configuration */
 io.on("connection", (socket) => {
@@ -54,6 +60,7 @@ app.use("/api/client", clientAuthRoutes);
 app.use("/api/dish", dishRoutes);
 app.use("/api/orders", ordersRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/tables", tablesRoutes);
 
 /** ✅ MongoDB + Lancement serveur */
 mongoose

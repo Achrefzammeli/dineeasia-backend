@@ -8,3 +8,4 @@ const TableSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 export default mongoose.model("Table", TableSchema);
+ 

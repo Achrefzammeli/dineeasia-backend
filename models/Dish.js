@@ -11,3 +11,4 @@ const DishSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 export default mongoose.model("Dish", DishSchema);
+ 
